@@ -1,0 +1,19 @@
+(rule $LessToken ($TOKEN) (FilterTokenFn lemma before less fewer smaller <))
+(rule $LessToken (< =) (ConstantFn "<="))
+(rule $LessPhrase ($LessToken) (ConstantFn "<="))
+
+(rule $EqualToken ($TOKEN) (FilterTokenFn lemma be equal =))
+(rule $EqualPhrase ($EqualToken ($Prep optional)) (ConstantFn "="))
+
+
+(rule $GreaterToken ($TOKEN) (FilterTokenFn lemma after greater larger more >))
+(rule $GreaterToken (> =) (ConstantFn @geq))
+(rule $GreaterPhrase ($GreaterToken) (ConstantFn @geq))
+
+(rule $BetweenToken ($TOKEN) (FilterTokenFn lemma between within in among from))
+(rule $BetweenPhrase ($BetweenToken) (ConstantFn "[]"))
+
+(rule $Filter ($GreaterPhrase $ColumnToken) (ConcatFn ":"))
+(rule $Filter ($LessPhrase $ColumnToken) (ConcatFn ":"))
+(rule $Filter ($EqualPhrase $ColumnToken) (ConcatFn ":"))
+(rule $Filter ($BetweenPhrase $ColumnRange) (ConcatFn ":"))
