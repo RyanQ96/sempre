@@ -1,2 +1,4 @@
 (include column.grammar)
 (include filter.grammar)
+(include query.grammar)
+(include commands.grammar)

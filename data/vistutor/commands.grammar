@@ -1,0 +1,5 @@
+(rule $QueryCombo ($Query) (IdentityFn))
+(rule $QueryCombo ($Query $Filters) (ConcatFn "&"))
+(rule $QueryCombo ($Filters $Query) (ConcatFn "&"))
+
+(rule $ROOT ($QueryCombo) (IdentityFn))
